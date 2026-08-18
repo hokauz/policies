@@ -31,6 +31,7 @@ import type {
   CatalogTsSyntaxBanRule,
   LoadedPolicyCatalog,
 } from './types';
+import { resolveWithinRoot } from '../path-safety';
 
 interface RuleContext {
   catalog: LoadedPolicyCatalog;
@@ -481,7 +482,7 @@ async function collectWorkspacePackageJsonPaths(repoRoot: string): Promise<strin
   for (const workspacePattern of rootPackageJson?.workspaces ?? []) {
     const glob = new Bun.Glob(`${workspacePattern}/package.json`);
     for await (const match of glob.scan({ cwd: repoRoot, absolute: true, onlyFiles: true })) {
-      paths.add(match);
+      paths.add(resolveWithinRoot(repoRoot, match));
     }
   }
 
@@ -506,7 +507,7 @@ async function collectDirectDependencyNames(repoRoot: string): Promise<Set<strin
 }
 
 async function checkLockfileRule(repoRoot: string, rule: CatalogLockfileRule): Promise<PolicyModuleCheckEntry[]> {
-  const absoluteLockfilePath = resolve(repoRoot, rule.lockfilePath);
+  const absoluteLockfilePath = resolveWithinRoot(repoRoot, rule.lockfilePath);
   if (!existsSync(absoluteLockfilePath)) {
     return [
       {

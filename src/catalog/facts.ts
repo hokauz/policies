@@ -1,10 +1,9 @@
 import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 
 import type { LoadedPolicyCatalog } from './types';
+import { resolveWithinRoot } from '../path-safety';
 
 interface ImportFact {
   kind: 'import';
@@ -98,14 +97,15 @@ async function collectSourceFiles(repoRoot: string, catalog: LoadedPolicyCatalog
       const glob = new Bun.Glob(pattern);
 
       for await (const match of glob.scan({
-        cwd: resolve(repoRoot, root),
+        cwd: resolveWithinRoot(repoRoot, root),
         absolute: true,
         onlyFiles: true,
       })) {
-        const rel = toRepoRelativePath(repoRoot, match);
+        const safeMatch = resolveWithinRoot(repoRoot, match);
+        const rel = toRepoRelativePath(repoRoot, safeMatch);
 
         if (shouldScanFile(rel, catalog)) {
-          files.push(match);
+          files.push(safeMatch);
         }
       }
     }
@@ -299,8 +299,8 @@ async function collectCatalogFacts(repoRoot: string, catalog: LoadedPolicyCatalo
       facts.tsSyntax.push(...fileFacts.tsSyntax);
       facts.exports.push(...fileFacts.exports);
       facts.fileSummaries.push(...fileFacts.fileSummaries);
-    } catch {
-      continue;
+    } catch (error) {
+      throw new Error(`Unable to analyze ${toRepoRelativePath(repoRoot, absoluteFile)}`, { cause: error });
     }
   }
 

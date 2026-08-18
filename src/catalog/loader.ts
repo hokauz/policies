@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { dirname, relative, resolve } from 'node:path';
 
 import Ajv from 'ajv';
 import type { ErrorObject } from 'ajv';
@@ -11,6 +11,11 @@ import type {
   CatalogScanSet,
   LoadedPolicyCatalog,
 } from './types';
+import { isWithinRoot, resolveWithinRoot } from '../path-safety';
+
+function isWithinRepoRoot(repoRoot: string, candidate: string): boolean {
+  return isWithinRoot(resolve(repoRoot), resolve(candidate));
+}
 
 const policySetSchema = {
   type: 'object',
@@ -118,7 +123,7 @@ function loadPolicyCatalog(repoRoot: string, manifestPath?: string): LoadedPolic
   const resolvedManifestPath = candidateManifestPaths
     .map((candidate) => resolve(repoRoot, candidate))
     .find((candidate) => existsSync(candidate));
-  const absoluteManifestPath = resolvedManifestPath ?? resolve(repoRoot, candidateManifestPaths[0]!);
+  const absoluteManifestPath = resolvedManifestPath ?? resolveWithinRoot(repoRoot, candidateManifestPaths[0]!);
   if (!existsSync(absoluteManifestPath)) {
     throw new Error(`Missing policy catalog manifest: ${candidateManifestPaths[0]}`);
   }
@@ -137,7 +142,9 @@ function loadPolicyCatalog(repoRoot: string, manifestPath?: string): LoadedPolic
   const patternSources: Record<string, string> = {};
 
   for (const ref of manifest.policySets) {
-    const policySetPath = resolve(rootDir, ref.path);
+    const policySetPath = isWithinRepoRoot(repoRoot, rootDir)
+      ? resolveWithinRoot(repoRoot, relative(resolve(repoRoot), rootDir), ref.path)
+      : resolve(rootDir, ref.path);
     if (!existsSync(policySetPath)) {
       throw new Error(`Missing policy set "${ref.path}" referenced by manifest`);
     }

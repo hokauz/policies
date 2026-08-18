@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import type { PolicyModuleCheckEntry, RootLockfileRule, RootPolicies } from '../types';
+import { resolveWithinRoot } from '../path-safety';
 
 interface BunLockPackageVersions {
   packageName: string;
@@ -113,7 +114,7 @@ async function collectWorkspacePackageJsonPaths(repoRoot: string): Promise<strin
       absolute: true,
       onlyFiles: true,
     })) {
-      packageJsonPaths.add(match);
+      packageJsonPaths.add(resolveWithinRoot(repoRoot, match));
     }
   }
 
@@ -151,7 +152,7 @@ async function checkRootLockfileRule(
   root: RootPolicies,
   rule: RootLockfileRule,
 ): Promise<PolicyModuleCheckEntry[]> {
-  const absoluteLockfilePath = resolve(repoRoot, rule.lockfilePath);
+  const absoluteLockfilePath = resolveWithinRoot(repoRoot, rule.lockfilePath);
 
   if (!existsSync(absoluteLockfilePath)) {
     return [
