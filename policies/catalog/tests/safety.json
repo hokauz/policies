@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "level": "tests",
+  "framework": "bun-test",
+  "domain": "safety",
+  "rules": [
+    {
+      "type": "member-call-ban",
+      "id": "no-test-only",
+      "project": "monorepo",
+      "scope": {
+        "includePathContains": [
+          ".test.",
+          ".spec."
+        ]
+      },
+      "objects": [
+        "it",
+        "test",
+        "describe"
+      ],
+      "properties": [
+        "only"
+      ],
+      "module": "tests",
+      "detailTemplate": "remove {object}.{property} before committing",
+      "recommendation": "Remove .only before committing - breaks CI parallelism assumptions"
+    },
+    {
+      "type": "member-call-ban",
+      "id": "no-skipped-tests",
+      "project": "monorepo",
+      "scope": {
+        "includePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "objects": [
+        "it",
+        "test",
+        "describe"
+      ],
+      "properties": [
+        "only",
+        "skip",
+        "todo"
+      ],
+      "module": "tests",
+      "detailTemplate": "remove {object}.{property} before committing",
+      "recommendation": "Remove .only, .skip, and .todo before committing tests."
+    }
+  ]
+}

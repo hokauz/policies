@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "level": "web",
+  "framework": "react",
+  "domain": "exports",
+  "rules": [
+    {
+      "type": "export-style",
+      "id": "no-inline-export",
+      "projects": [
+        {
+          "project": "elysia-api",
+          "prefix": "apps/api/src/"
+        },
+        {
+          "project": "react-spa",
+          "prefix": "apps/web/src/"
+        }
+      ],
+      "scope": {
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "disallowNamedDeclarationExports": true,
+      "allowReExports": true,
+      "allowDefaultExport": true,
+      "module": "exports",
+      "detailTemplate": "inline export {declarationType}",
+      "recommendation": "Declare symbols without export and group exports at the bottom with export { ... } or export type { ... }"
+    }
+  ]
+}

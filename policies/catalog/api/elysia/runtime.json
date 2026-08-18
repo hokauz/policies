@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "level": "api",
+  "framework": "elysia",
+  "domain": "runtime",
+  "rules": [
+    {
+      "type": "restricted-import-pattern",
+      "id": "api-handler-service-boundary",
+      "project": "elysia-api",
+      "scope": {
+        "includePrefixes": [
+          "apps/api/src/modules/"
+        ],
+        "includeSuffixes": [
+          "/handler.ts"
+        ]
+      },
+      "forbiddenSourceSuffixes": [
+        "/repository"
+      ],
+      "forbiddenSourceContains": [
+        "/shared/db"
+      ],
+      "moduleFromPathSegment": 3,
+      "detailTemplate": "handler imports forbidden data-layer dependency \"{source}\"",
+      "recommendation": "Handlers should depend on services and shared error helpers, not repositories or databases."
+    }
+  ]
+}

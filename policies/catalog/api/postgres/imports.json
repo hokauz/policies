@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "level": "api",
+  "framework": "postgres",
+  "domain": "imports",
+  "project": {
+    "name": "elysia-api",
+    "path": "apps/api"
+  },
+  "rules": [
+    {
+      "type": "restricted-import",
+      "id": "elysia-api-postgres-imports",
+      "match": {
+        "source": "postgres"
+      },
+      "scan": {
+        "folder": "apps/api/src"
+      },
+      "allow": {
+        "folders": [
+          "apps/api/src/shared/db"
+        ],
+        "files": [
+          "apps/api/src/migrate.ts"
+        ]
+      },
+      "display": {
+        "baseFolder": "src",
+        "allowedLocations": [
+          "shared/db",
+          "src/migrate.ts"
+        ]
+      },
+      "recommendation": "Import postgres only from src/shared/db; use the Database adapter elsewhere."
+    }
+  ]
+}

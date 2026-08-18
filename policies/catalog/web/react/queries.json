@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "level": "web",
+  "framework": "react",
+  "domain": "queries",
+  "project": {
+    "name": "react-spa",
+    "path": "apps/web"
+  },
+  "rules": [
+    {
+      "type": "restricted-import",
+      "id": "react-spa-react-query-imports",
+      "match": {
+        "source": "@tanstack/react-query"
+      },
+      "scan": {
+        "folder": "apps/web/src"
+      },
+      "allow": {
+        "folders": [
+          "apps/web/src/queries"
+        ]
+      },
+      "display": {
+        "baseFolder": "src",
+        "allowedLocations": [
+          "queries"
+        ]
+      },
+      "recommendation": "Move direct React Query usage into src/queries and keep only that layer importing @tanstack/react-query directly."
+    },
+    {
+      "type": "object-property-numeric-max",
+      "id": "web-query-limit-max-20",
+      "project": "react-spa",
+      "scope": {
+        "includePrefixes": [
+          "apps/web/src/"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "property": "limit",
+      "max": 20,
+      "module": "queries",
+      "detailTemplate": "query limit {value} exceeds the maximum of 20",
+      "recommendation": "Keep web query limits at 20 or lower."
+    }
+  ]
+}

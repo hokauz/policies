@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "level": "shared",
+  "framework": "workspace",
+  "domain": "scan",
+  "scan": {
+    "roots": [
+      "apps/api/src",
+      "apps/web/src",
+      "e2e/support",
+      "packages"
+    ],
+    "patterns": [
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "ignorePathParts": [
+      "/node_modules/",
+      "/dist/"
+    ]
+  }
+}

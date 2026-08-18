@@ -1,0 +1,25 @@
+{
+  "name": "policies",
+  "version": "1.0.0",
+  "description": "Configurable TypeScript policy checker for project repositories.",
+  "bin": {
+    "policies": "./src/cli.ts"
+  },
+  "scripts": {
+    "check": "bun src/cli.ts",
+    "check-types": "tsc --project tsconfig.json --noEmit",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
+    "ajv": "^8.20.0",
+    "json-logic-js": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/json-logic-js": "^2.0.8",
+    "bun-types": "latest",
+    "@types/babel__traverse": "^7.20.6",
+    "typescript": "6.0.3"
+  }
+}

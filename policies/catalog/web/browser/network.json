@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "level": "web",
+  "framework": "browser",
+  "domain": "network",
+  "rules": [
+    {
+      "type": "function-call-ban",
+      "id": "web-fetch-boundary",
+      "project": "react-spa",
+      "scope": {
+        "includePrefixes": [
+          "apps/web/src/"
+        ],
+        "allowedFiles": [
+          "apps/web/src/shared/api/eden-client.ts",
+          "apps/web/src/shared/utils/http-client.ts"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "functionName": "fetch",
+      "module": "api-boundary",
+      "detail": "direct fetch call outside shared HTTP infrastructure",
+      "recommendation": "Use the shared HTTP client or edenApi instead of calling fetch directly."
+    }
+  ]
+}

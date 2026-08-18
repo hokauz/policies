@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "level": "shared",
+  "framework": "typescript",
+  "domain": "syntax",
+  "rules": [
+    {
+      "type": "ts-syntax-ban",
+      "id": "no-explicit-any-production",
+      "projects": [
+        {
+          "project": "elysia-api",
+          "prefix": "apps/api/src/"
+        },
+        {
+          "project": "react-spa",
+          "prefix": "apps/web/src/"
+        }
+      ],
+      "scope": {
+        "allowedFiles": [
+          "apps/api/src/middlewares/idempotency/index.ts",
+          "apps/api/src/shared/handler-errors.ts"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "nodeType": "TSAnyKeyword",
+      "module": "types",
+      "detail": "explicit any in production source",
+      "recommendation": "Use an explicit unknown or domain type instead of any in production code."
+    }
+  ]
+}

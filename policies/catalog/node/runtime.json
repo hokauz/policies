@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "level": "node",
+  "framework": "node",
+  "domain": "runtime",
+  "rules": [
+    {
+      "type": "member-expression-ban",
+      "id": "no-process-env-outside-loader",
+      "project": "elysia-api",
+      "scope": {
+        "includePrefixes": [
+          "apps/api/src/"
+        ],
+        "allowedFiles": [
+          "apps/api/src/shared/envs/env-loader.ts",
+          "apps/api/src/migrate.ts"
+        ]
+      },
+      "match": {
+        "object": "process",
+        "property": "env"
+      },
+      "module": "env",
+      "detail": "direct process.env access outside env-loader.ts",
+      "recommendation": "Read env only via src/shared/envs/env-loader.ts"
+    },
+    {
+      "type": "member-call-ban",
+      "id": "no-direct-console-production",
+      "projects": [
+        {
+          "project": "elysia-api",
+          "prefix": "apps/api/src/"
+        },
+        {
+          "project": "react-spa",
+          "prefix": "apps/web/src/"
+        }
+      ],
+      "scope": {
+        "allowedFiles": [
+          "apps/api/src/migrate.ts",
+          "apps/api/src/shared/envs/runtime-env.ts",
+          "apps/web/src/env.ts"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "object": "console",
+      "excludedProperties": [
+        "error"
+      ],
+      "module": "logging",
+      "detailTemplate": "direct console.{property} call in production source",
+      "recommendation": "Use the application logger; direct console output is reserved for bootstrap diagnostics."
+    }
+  ]
+}

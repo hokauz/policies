@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "level": "monorepo",
+  "framework": "bun",
+  "domain": "lockfiles",
+  "rules": [
+    {
+      "type": "lockfile-single-version",
+      "id": "bun-lock-single-version",
+      "lockfilePath": "bun.lock",
+      "recommendation": "Keep a single resolved version for each package across the monorepo to preserve consistency and cross-compatibility."
+    }
+  ]
+}

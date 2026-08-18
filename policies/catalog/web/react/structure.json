@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "level": "web",
+  "framework": "react",
+  "domain": "structure",
+  "project": {
+    "name": "react-spa",
+    "path": "apps/web"
+  },
+  "rules": [
+    {
+      "type": "folder-structure",
+      "id": "react-spa-folder-structure",
+      "baseFolder": "src/modules",
+      "allowedFolders": [
+        {
+          "name": "components",
+          "definition": "Module-local React UI and composition components."
+        },
+        {
+          "name": "datasource",
+          "definition": "Data access and API integration for the module."
+        },
+        {
+          "name": "guard",
+          "definition": "Route guards and access control helpers."
+        },
+        {
+          "name": "hooks",
+          "definition": "Feature hooks and module orchestration."
+        },
+        {
+          "name": "model",
+          "definition": "Domain models and shared module types."
+        },
+        {
+          "name": "pages",
+          "definition": "Route-level screens for the module."
+        },
+        {
+          "name": "schemas",
+          "definition": "Validation schemas and form contracts."
+        },
+        {
+          "name": "services",
+          "definition": "Business services and orchestration logic."
+        },
+        {
+          "name": "theme",
+          "definition": "Module-specific theme tokens or styling helpers used by home."
+        },
+        {
+          "name": "utils",
+          "definition": "Pure utilities scoped to the module."
+        }
+      ],
+      "recommendation": "Move the folder into an allowed module folder or update the project config if this top-level folder is intentional."
+    }
+  ]
+}

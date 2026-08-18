@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "level": "shared",
+  "framework": "workspace",
+  "domain": "patterns",
+  "patterns": {
+    "testFiles": "(^|/)__tests__/|\\.(test|spec)\\.[jt]sx?$"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "name": "project-policy-catalog",
+  "description": "Semantic catalog of reusable project policy rules organized by level, framework, and domain.",
+  "policySets": [
+    {
+      "level": "shared",
+      "framework": "workspace",
+      "domain": "scan",
+      "path": "shared/scan.json"
+    },
+    {
+      "level": "shared",
+      "framework": "workspace",
+      "domain": "patterns",
+      "path": "shared/patterns.json"
+    },
+    {
+      "level": "shared",
+      "framework": "typescript",
+      "domain": "syntax",
+      "path": "shared/typescript.json"
+    },
+    {
+      "level": "monorepo",
+      "framework": "bun",
+      "domain": "lockfiles",
+      "path": "monorepo/lockfiles.json"
+    },
+    {
+      "level": "node",
+      "framework": "node",
+      "domain": "runtime",
+      "path": "node/runtime.json"
+    },
+    {
+      "level": "api",
+      "framework": "elysia",
+      "domain": "structure",
+      "path": "api/elysia/structure.json"
+    },
+    {
+      "level": "api",
+      "framework": "elysia",
+      "domain": "routes",
+      "path": "api/elysia/routes.json"
+    },
+    {
+      "level": "api",
+      "framework": "elysia",
+      "domain": "runtime",
+      "path": "api/elysia/runtime.json"
+    },
+    {
+      "level": "api",
+      "framework": "postgres",
+      "domain": "imports",
+      "path": "api/postgres/imports.json"
+    },
+    {
+      "level": "web",
+      "framework": "react",
+      "domain": "structure",
+      "path": "web/react/structure.json"
+    },
+    {
+      "level": "web",
+      "framework": "react",
+      "domain": "exports",
+      "path": "web/react/exports.json"
+    },
+    {
+      "level": "web",
+      "framework": "react",
+      "domain": "queries",
+      "path": "web/react/queries.json"
+    },
+    {
+      "level": "web",
+      "framework": "eden",
+      "domain": "imports",
+      "path": "web/eden/imports.json"
+    },
+    {
+      "level": "web",
+      "framework": "browser",
+      "domain": "network",
+      "path": "web/browser/network.json"
+    },
+    {
+      "level": "tests",
+      "framework": "bun-test",
+      "domain": "safety",
+      "path": "tests/safety.json"
+    }
+  ]
+}

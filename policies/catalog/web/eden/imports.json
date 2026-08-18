@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "level": "web",
+  "framework": "eden",
+  "domain": "imports",
+  "rules": [
+    {
+      "type": "restricted-import",
+      "id": "web-eden-client-boundary",
+      "project": "react-spa",
+      "scope": {
+        "includePrefixes": [
+          "apps/web/src/"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "match": {
+        "source": "@/shared/api/eden-client"
+      },
+      "allow": {
+        "prefixes": [
+          "apps/web/src/shared/api/",
+          "apps/web/src/shared/stores/auth.store.ts",
+          "apps/web/src/modules/"
+        ],
+        "pathContains": [
+          "/datasource/"
+        ]
+      },
+      "module": "api-boundary",
+      "detail": "direct import of \"@/shared/api/eden-client\" outside datasource/shared API files",
+      "recommendation": "Use edenApi only in shared API infrastructure or module datasource files; consume it elsewhere through queries."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "level": "api",
+  "framework": "elysia",
+  "domain": "structure",
+  "project": {
+    "name": "elysia-api",
+    "path": "apps/api"
+  },
+  "rules": [
+    {
+      "type": "folder-structure",
+      "id": "elysia-api-folder-structure",
+      "baseFolder": "src/modules",
+      "allowedFolders": [
+        {
+          "name": "__tests__",
+          "definition": "Colocated unit tests for the module."
+        },
+        {
+          "name": "queries",
+          "definition": "SQL/query layer split when the module grows."
+        },
+        {
+          "name": "service",
+          "definition": "Service submodules for orchestration splits."
+        },
+        {
+          "name": "occurrence",
+          "definition": "Domain-specific occurrence logic, for example transactions."
+        }
+      ],
+      "recommendation": "Move the folder into an allowed module folder or update the project config if this top-level folder is intentional."
+    }
+  ]
+}

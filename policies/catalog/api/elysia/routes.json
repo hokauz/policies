@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "level": "api",
+  "framework": "elysia",
+  "domain": "routes",
+  "rules": [
+    {
+      "type": "member-call-location",
+      "id": "api-routes-in-route-ts",
+      "project": "elysia-api",
+      "scope": {
+        "includePrefixes": [
+          "apps/api/src/modules/"
+        ],
+        "allowedSuffixes": [
+          "/route.ts"
+        ],
+        "ignorePatternRefs": [
+          "testFiles"
+        ]
+      },
+      "match": {
+        "methods": [
+          "get",
+          "post",
+          "put",
+          "patch",
+          "delete",
+          "head",
+          "options"
+        ],
+        "firstArgumentType": "StringLiteral"
+      },
+      "moduleFromPathSegment": 3,
+      "detailTemplate": "HTTP route declaration \"{method}('{path}')\" outside route.ts",
+      "recommendation": "Declare HTTP routes only in route.ts"
+    },
+    {
+      "type": "api-route-conventions",
+      "id": "api-route-conventions",
+      "project": "elysia-api",
+      "scope": {
+        "includePrefixes": [
+          "apps/api/src/modules/"
+        ],
+        "includeSuffixes": [
+          "/route.ts"
+        ],
+        "exceptionFiles": [
+          "apps/api/src/modules/health/route.ts"
+        ]
+      },
+      "requires": [
+        {
+          "type": "import-local-name",
+          "ruleId": "api-private-route-auth",
+          "localName": "authPlugin",
+          "detail": "private module route does not import authPlugin",
+          "recommendation": "Use authPlugin for private module routes; add an explicit exception only for public routes."
+        },
+        {
+          "type": "import-source-suffix",
+          "ruleId": "api-route-contract-import",
+          "sourceSuffix": "/route-contracts",
+          "detail": "module route does not import route-contracts",
+          "recommendation": "Declare and use the Eden contract from the module route-contracts file."
+        },
+        {
+          "type": "route-third-argument",
+          "ruleId": "api-route-contract-required",
+          "methods": [
+            "get",
+            "post",
+            "put",
+            "patch",
+            "delete",
+            "head",
+            "options"
+          ],
+          "detailTemplate": "HTTP route declaration \"{method}('{path}')\" has no contract",
+          "recommendation": "Pass the corresponding route contract as the third argument to the Elysia route method."
+        }
+      ],
+      "recommendation": "Private API routes must use authPlugin and every route must declare its contract."
+    }
+  ]
+}
