@@ -2,6 +2,7 @@
   "name": "policies",
   "version": "1.0.0",
   "description": "Configurable TypeScript policy checker for project repositories.",
+  "license": "AGPL-3.0-or-later",
   "bin": {
     "policies": "./src/cli.ts"
   },
